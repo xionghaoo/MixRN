@@ -1,7 +1,25 @@
 # MixRN
-ReactNative和原生混合项目
+> ReactNative和原生混合项目
 
-### ReactNative Bundle打包命令
+## 开发
+1. 启动development server
+```
+yarn start
+```
+2. 启动app
+
+## Reload
+#### 真机打开menu菜单方法
+1. 摇晃手机
+2. adb命令
+```
+adb shell input keyevent 82
+```
+
+adb键盘相关命令
+[adb命令](https://stackoverflow.com/questions/7789826/adb-shell-input-events)
+
+## ReactNative Bundle打包命令
 ```
 react-native bundle --platform android --dev false --entry-file index.js --bundle-output app/src/main/assets/index.android.bundle --assets-dest app/src/main/res/
 ```
@@ -29,4 +47,11 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
     --read-global-cache                Try to fetch transformed JS code from the global cache, if configured.
     --config [string]                  Path to the CLI configuration file
     -h, --help                         output usage information
+```
+
+## 常见问题
+##### 1、真连不上development server
+运行以下命令
+```
+adb reverse tcp:8081 tcp:8081
 ```

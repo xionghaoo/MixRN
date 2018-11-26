@@ -7,7 +7,10 @@ class HelloWorld extends React.Component {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
     }
     return (
-      <Image source={pic} style={{width: 193, height: 110}}/>
+      <View>
+        <Image source={pic} style={{width: 193, height: 110}}/>
+        <Text>HelloWorld</Text>
+      </View>
     );
   }
 }
