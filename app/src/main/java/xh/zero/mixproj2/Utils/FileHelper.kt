@@ -1,6 +1,7 @@
 package xh.zero.mixproj2.Utils
 
 import android.content.Context
+import android.os.Environment
 import android.widget.TextView
 import java.io.*
 
@@ -34,6 +35,12 @@ class FileHelper {
 
             }
             return result.toString()
+        }
+
+        fun getDownloadPath(context: Context) : File {
+            val externalCachePath = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+            val innerCachePath = context.cacheDir
+            return if (externalCachePath == null) innerCachePath else externalCachePath
         }
 
         fun getCacheFolderSize(context: Context) : Long {

@@ -21,6 +21,7 @@ import com.downloader.Error
 import com.downloader.OnDownloadListener
 import com.downloader.PRDownloader
 import permissions.dispatcher.*
+import xh.zero.mixproj2.Utils.FileHelper
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -108,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         val url = "https://oss.jinzhucaifu.com/others/app/config/homeIcom.zip"
 //        DownloadTask().execute(url, destFileName)
 
-        PRDownloader.download(url, getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.toString(), "test1.zip")
+        PRDownloader.download(url, FileHelper.getDownloadPath(this@MainActivity).toString(), "test1.zip")
             .build()
             .start(object : OnDownloadListener {
                 override fun onDownloadComplete() {
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onError(error: Error?) {
+                    Toast.makeText(this@MainActivity, "下载失败", Toast.LENGTH_SHORT).show()
                 }
             })
 
