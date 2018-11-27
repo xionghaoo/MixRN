@@ -1,5 +1,5 @@
 # MixRN
-> ReactNative和原生混合项目
+> ReactNative和原生混合项目，ReactNative版本0.57
 
 ## 开发
 1. 启动development server
@@ -48,6 +48,29 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
     --config [string]                  Path to the CLI configuration file
     -h, --help                         output usage information
 ```
+
+## 热更新
+> 通过替换jsBundle实现
+
+#### 补丁方式
+> 跨版本升级非常麻烦，需要考虑的版本太多，补丁太多
+
++ 第一次安装完成的App加载的是apk里面assets目录下的bundle，而assets目录是不可修改的。
++ 第一次热更新时下载patch文件到本地，与assets目录的bundle对比，在内部存储packageName/files/目录生成新版本的bundle，保证清理缓存不会把bundle清除掉
++ 之后每次app运行都加载内部存储的bundle
++ 以后每次热更新都是对比内部存储的bundle，生成新的bundle进行覆盖
++ 如果app重新安装，需要下载跨版本的最新bundle补丁。
++ 补丁包要包括所有版本的升级，如1->2、2->3、3->4、1->4、2->3、2->4、3->4
+
+#### 替换bundle的方式
+> 这种就不需要考虑版本的问题
+
++ 每次只需要下载最新的bundle进行替换就行了。
+
+#### 两种方式相结合
++ 一个版本以内采用补丁方式
++ 跨度超过一个版本采用bundle覆盖的方式
++ 版本的跨度是否超过一个版本由接口指定
 
 ## 常见问题
 ##### 1、真连不上development server

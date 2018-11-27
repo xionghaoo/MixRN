@@ -6,6 +6,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.lang.IllegalArgumentException
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.zip.ZipEntry
@@ -84,16 +85,19 @@ class ZipHelper {
             return saveFilePath
         }
 
-        fun unzipFile(zipFile: String, location: String) {
+        fun unzipFile(sourceFile: String, unzipPath: String) {
+//            if (!sourceFile.contains("^.+[.zip]$".toRegex())) {
+//                throw IllegalArgumentException("解压文件必须是zip格式文件")
+//            }
             try {
-                val fin = FileInputStream(zipFile)
+                val fin = FileInputStream(sourceFile)
                 val zin = ZipInputStream(fin)
                 var ze: ZipEntry? = zin.nextEntry
                 while (ze != null) {
                     if (ze.isDirectory) {
-                        dirChecker(location, ze.name)
+                        dirChecker(unzipPath, ze.name)
                     } else {
-                        val filePath = File(location + File.separator + ze.name)
+                        val filePath = File(unzipPath + File.separator + ze.name)
 
                         val fout = FileOutputStream(filePath)
 

@@ -12,6 +12,7 @@ import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 import com.facebook.react.shell.MainReactPackage
 import xh.zero.mixproj2.Utils.FileHelper
 import xh.zero.mixproj2.Utils.Logger
+import java.io.File
 
 class MyRNActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
 
@@ -23,15 +24,13 @@ class MyRNActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
 
         mReactRootView = ReactRootView(this)
 
-        val hasNewBundle = intent.getBooleanExtra(EXTRA_HAS_UPDATE_BUNDLE, false)
+        val bundleFile = File(filesDir, "index.android.bundle")
 
-        Logger.d("has new bundle = $hasNewBundle", "RN")
-
-        if (hasNewBundle) {
+        if (bundleFile.exists()) {
             mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(application)
                 //从sdcard路径加载bundle
-                .setJSBundleFile(FileHelper.getCacheDir(this).toString() + "/update/index.android.bundle")
+                .setJSBundleFile(filesDir.toString() + "/index.android.bundle")
                 .setJSMainModulePath("index")
                 .addPackage(MainReactPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
@@ -103,8 +102,4 @@ class MyRNActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
         return super.onKeyUp(keyCode, event)
     }
 
-    companion object {
-
-        var EXTRA_HAS_UPDATE_BUNDLE = "xh.zero.mixproj2.MyRNActivity.EXTRA_HAS_UPDATE_BUNDLE"
-    }
 }

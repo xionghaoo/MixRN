@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
 
     private val OVERLAY_PERMISSION_REQ_CODE = 1  // Choose any value
     private var mDownloadId: Long = 0
-    private var hasNewBundle: Boolean = false
 
     private val localReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -87,7 +86,6 @@ class MainActivity : AppCompatActivity() {
 
     fun start(v: View) {
         val intent = Intent(this@MainActivity, MyRNActivity::class.java)
-        intent.putExtra(MyRNActivity.EXTRA_HAS_UPDATE_BUNDLE, hasNewBundle)
         startActivity(intent)
     }
 
@@ -126,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity, "下载完成", Toast.LENGTH_SHORT).show()
                     //解压补丁包
                     ZipHelper.unzipFile(cachePath + "/patch.zip", updatePackagePath.toString())
-                    //读取assets中的bundle
+                    //读取assets中的bundle，只在第一次更新时
                     val oldBundle = FileHelper.readAssetsFile("index.android.bundle", this@MainActivity)
                     //读取解压完成的patch文件
                     val patch: String = FileHelper.readFile(updatePackagePath.toString() + "/_patch")
@@ -148,11 +146,9 @@ class MainActivity : AppCompatActivity() {
         val newBundle = objs[0] as String
         val success = objs[1] as BooleanArray
         if (success[0]) {
-            FileHelper.writeFile(FileHelper.getCacheDir(this@MainActivity).toString() + "/update/index.android.bundle", newBundle)
-            hasNewBundle = true
+            FileHelper.writeFile(filesDir.toString() + "/index.android.bundle", newBundle)
         } else {
             Logger.e("更新文件合并失败")
-            hasNewBundle = false
         }
     }
 
