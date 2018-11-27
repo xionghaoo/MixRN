@@ -84,7 +84,7 @@ class ZipHelper {
             return saveFilePath
         }
 
-        private fun unzipFile(zipFile: String, location: String) {
+        fun unzipFile(zipFile: String, location: String) {
             try {
                 val fin = FileInputStream(zipFile)
                 val zin = ZipInputStream(fin)

@@ -5,11 +5,11 @@ import android.os.Environment
 import android.widget.TextView
 import java.io.*
 
+
+
 class FileHelper {
     companion object {
-        fun readConfiguration(file: String, context: Context): String {
-//            var inS = inputStream
-//            val inputStream = FileInputStream(file)
+        fun readAssetsFile(file: String, context: Context): String {
             val result = StringBuffer()
             var reader: BufferedReader? = null
             try {
@@ -37,8 +37,44 @@ class FileHelper {
             return result.toString()
         }
 
-        fun getDownloadPath(context: Context) : File {
-            val externalCachePath = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+        fun writeFile(file: String, content: String) {
+            var fileWriter: FileWriter? = null
+            var bufferedWriter: BufferedWriter? = null
+            try {
+                fileWriter = FileWriter(file)
+                bufferedWriter = BufferedWriter(fileWriter)
+                bufferedWriter.write(content)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            } finally {
+                bufferedWriter?.close()
+                fileWriter?.close()
+            }
+        }
+
+        fun readFile(filename: String): String {
+            // Read a file from disk and return the text contents.
+            val sb = StringBuilder()
+            var input: FileReader? = null
+            var bufRead: BufferedReader? = null
+            try {
+                input = FileReader(filename)
+                bufRead = BufferedReader(input)
+                var line = bufRead.readLine()
+                while (line != null) {
+                    sb.append(line).append('\n')
+                    line = bufRead.readLine()
+                }
+            } finally {
+                bufRead?.close()
+                input?.close()
+            }
+            return sb.toString()
+        }
+
+
+        fun getCacheDir(context: Context) : File {
+            val externalCachePath = context.externalCacheDir
             val innerCachePath = context.cacheDir
             return if (externalCachePath == null) innerCachePath else externalCachePath
         }

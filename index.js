@@ -9,7 +9,7 @@ class HelloWorld extends React.Component {
     return (
       <View>
         <Image source={pic} style={{width: 193, height: 110}}/>
-        <Text>HelloWorld</Text>
+        <Text>This is verison 1 app</Text>
       </View>
     );
   }
