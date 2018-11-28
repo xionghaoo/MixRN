@@ -89,6 +89,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun startTaskPage(v: View) {
+        startActivity(Intent(this@MainActivity, RNTaskActivity::class.java))
+    }
+
     fun download(v: View) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             showPermissionRequestWithPermissionCheck()

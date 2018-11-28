@@ -8,9 +8,8 @@ class HelloWorld extends React.Component {
     }
     return (
       <View>
-        <Image source={pic} style={{width: 193, height: 110}}/>
-        <Text>This is verison 3 app</Text>
-        <Text>This is MyReactNativeApp Page</Text>
+        <Text>This is Task RN Page</Text>
+        <Text>This is second RN Page</Text>
       </View>
     );
   }
@@ -27,4 +26,4 @@ var styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('MyReactNativeApp', () => HelloWorld);
+AppRegistry.registerComponent('TaskNativeApp', () => HelloWorld);
