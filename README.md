@@ -20,7 +20,7 @@ adb键盘相关命令
 [adb命令](https://stackoverflow.com/questions/7789826/adb-shell-input-events)
 
 ## ReactNative离线Bundle打包
-在项目根目录下运行以下命令
+在项目根目录(ReactNative根目录)下运行以下命令
 ```
 react-native bundle --platform android --dev false --entry-file index.js --bundle-output app/src/main/assets/index.android.bundle --assets-dest app/src/main/res/
 ```
