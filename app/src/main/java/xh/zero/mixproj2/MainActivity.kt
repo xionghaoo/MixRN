@@ -243,15 +243,7 @@ class MainActivity : AppCompatActivity() {
     @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.READ_EXTERNAL_STORAGE)
     fun onPermissionNeverAskAgain() {
-//        AlertDialog.Builder(this)
-//                .setMessage("检测到您禁止了外部存储权限，为了正常使用App，请开启。")
-//                .setPositiveButton("授予权限") { dialog, which ->
-//                    request.proceed()
-//                }
-//                .setNegativeButton("取消") { dialog, which ->
-//                    request.cancel()
-//                }
-//                .show()
+
     }
 
     @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE,

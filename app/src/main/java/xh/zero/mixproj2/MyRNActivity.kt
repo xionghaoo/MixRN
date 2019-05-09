@@ -6,6 +6,7 @@ import android.os.Looper
 import android.support.v7.app.AppCompatActivity
 import android.view.KeyEvent
 import com.facebook.react.ReactInstanceManager
+import com.facebook.react.ReactPackage
 import com.facebook.react.ReactRootView
 import com.facebook.react.common.LifecycleState
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
@@ -13,6 +14,7 @@ import com.facebook.react.shell.MainReactPackage
 import xh.zero.mixproj2.Utils.FileHelper
 import xh.zero.mixproj2.Utils.Logger
 import java.io.File
+import java.util.*
 
 class MyRNActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
 
@@ -100,6 +102,12 @@ class MyRNActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
             return true
         }
         return super.onKeyUp(keyCode, event)
+    }
+
+    private fun getPackages(): List<ReactPackage> {
+        return Arrays.asList<ReactPackage>(
+            MainReactPackage()
+        )
     }
 
 }

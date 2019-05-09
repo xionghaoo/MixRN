@@ -73,6 +73,9 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 + 跨度超过一个版本采用bundle覆盖的方式
 + 版本的跨度是否超过一个版本由接口指定
 
+## 补丁生成
+工具：[PatchCreator](https://github.com/xionghaoo/PatchCreator)
+
 ## 常见问题
 ##### 1、真连不上development server
 运行以下命令
