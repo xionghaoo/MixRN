@@ -102,18 +102,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun downloadFile() {
-//        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-//        val request = DownloadManager.Request(Uri.parse("https://oss.jinzhucaifu.com/others/app/config/homeIcom.zip"))
-//        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-//        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
-//        request.setTitle("test.zip")
-//        request.setDescription("desc")
-        val destFileName = externalCacheDir.toString() + File.separator + "test.zip"
-//        request.setDestinationInExternalFilesDir(this@MainActivity, Environment.DIRECTORY_DOWNLOADS, "t")
-//        mDownloadId = downloadManager.enqueue(request)
-//        Log.d("MPage", "file: " + destFileName)
         val url = "https://oss.jinzhucaifu.com/others/app/config/homeIcom.zip"
-//        DownloadTask().execute(url, destFileName)
 
         val updatePackagePath = File(FileHelper.getCacheDir(this@MainActivity), "update")
         val cachePath = FileHelper.getCacheDir(this@MainActivity).toString()
@@ -153,64 +142,6 @@ class MainActivity : AppCompatActivity() {
             FileHelper.writeFile(filesDir.toString() + "/index.android.bundle", newBundle)
         } else {
             Logger.e("更新文件合并失败")
-        }
-    }
-
-    class DownloadTask : AsyncTask<String, Int, Int>() {
-
-        override fun doInBackground(vararg params: String?): Int {
-            val url = params[0]
-            val fileName = params[1]
-
-            try {
-                val conn = URL(url).openConnection() as HttpURLConnection
-                conn.requestMethod = "GET"
-                conn.doOutput = false
-                conn.setRequestProperty("Connection", "Keep-Alive")
-                conn.setRequestProperty("Content-Type", "application/zip")
-                conn.connect()
-
-                val length = conn.contentLength
-                Log.d("MPage", "start download, file length = " + length)
-                val file = File(fileName)
-
-                val inStream = conn.inputStream
-                val fout = FileOutputStream(File(fileName))
-
-                val buffer = ByteArray(1024)
-                var progress = 0
-                var byteSum = 0
-                var byteRead = inStream.read()
-
-                while (byteRead != -1) {
-                    byteSum += byteRead
-                    progress = (byteSum * 100L / length).toInt()
-                    publishProgress(progress)
-                    fout.write(buffer, 0, byteRead)
-                    fout.flush()
-
-                    byteRead = inStream.read()
-                }
-                conn.disconnect()
-                inStream.close()
-                fout.close()
-                return 1
-            } catch (e: Exception) {
-                e.printStackTrace()
-                return 0
-            }
-        }
-
-        override fun onProgressUpdate(vararg values: Int?) {
-            Log.d("MPage", "download " + values[0] + "%")
-        }
-
-        override fun onPostExecute(result: Int) {
-            if (result == 0) {
-                Log.d("MPage", "download complete")
-            } else {
-                Log.d("MPage", "download failure")
-            }
         }
     }
 
