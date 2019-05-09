@@ -1,5 +1,5 @@
 # MixRN
-> ReactNative和原生混合项目，ReactNative版本0.57
+> ReactNative和原生混合项目，ReactNative版本0.59.8
 
 ## 开发
 1. 启动development server
