@@ -8,6 +8,7 @@ import com.facebook.react.ReactRootView
 import com.facebook.react.common.LifecycleState
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 import com.facebook.react.shell.MainReactPackage
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage
 
 class RNTaskActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
 
@@ -23,6 +24,7 @@ class RNTaskActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
             .setBundleAssetName("index.android.task.bundle")
             .setJSMainModulePath("index_task")
             .addPackage(MainReactPackage())
+            .addPackage(RNGestureHandlerPackage())
             .setUseDeveloperSupport(BuildConfig.DEBUG)
             .setInitialLifecycleState(LifecycleState.RESUMED)
             .build()
